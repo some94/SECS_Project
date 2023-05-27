@@ -10,4 +10,4 @@
 # PyCharm
 migrations/
 db.sqlite3
-/SECS/settings.py
+/SECS/my_settings.py
