@@ -3,6 +3,7 @@ from django.utils import timezone
 
 # 온습도 센서의 현재 상태
 class DhtSensor(models.Model):
+    id = models.IntegerField(primary_key=True)
     name = models.CharField(max_length=50, unique=True)
     timestamp = models.DateTimeField(default=timezone.now)
     temperature = models.FloatField(verbose_name='Temperature')
@@ -17,6 +18,7 @@ class DhtSensor(models.Model):
 
 # 적외선 센서의 현재 상태
 class IrSensor(models.Model):
+    id = models.IntegerField(primary_key=True)
     name = models.CharField(max_length=50, unique=True)
     timestamp = models.DateTimeField(default=timezone.now)
     status = models.CharField(max_length=50, verbose_name='Motion Detected')
@@ -29,11 +31,13 @@ class IrSensor(models.Model):
 
 # 쿨링팬의 작동 시간 저장
 class Fan(models.Model):
+    id = models.IntegerField(primary_key=True)
     name = models.CharField(max_length=50, unique=True)
     runtime = models.DurationField(verbose_name='Fan Runtime')
 
 # 전구의 작동 시간 저장
 class Bulb(models.Model):
+    id = models.IntegerField(primary_key=True)
     name = models.CharField(max_length=50, unique=True)
     runtime = models.DurationField(verbose_name='Bulb Runtime')
 
