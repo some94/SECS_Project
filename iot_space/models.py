@@ -4,7 +4,7 @@ from django.utils import timezone
 # 온습도 센서의 현재 상태
 class DhtSensor(models.Model):
     name = models.CharField(max_length=50, unique=True)
-    timestamp = models.DateTimeField(default=timezone.now())
+    timestamp = models.DateTimeField(default=timezone.now)
     temperature = models.FloatField(verbose_name='Temperature')
     humidity = models.FloatField(verbose_name='Humidity')
 
@@ -16,10 +16,10 @@ class DhtSensor(models.Model):
         ordering = ['-timestamp']
 
 # 적외선 센서의 현재 상태
-class IrSensor:
+class IrSensor(models.Model):
     name = models.CharField(max_length=50, unique=True)
-    timestamp = models.DateTimeField(default=timezone.now())
-    status = models.BooleanField(verbose_name='Motion Detected')
+    timestamp = models.DateTimeField(default=timezone.now)
+    status = models.CharField(max_length=50, verbose_name='Motion Detected')
 
     def __str__(self):
         return f'Motion Detected: {self.status}'
@@ -28,23 +28,13 @@ class IrSensor:
         ordering = ['-timestamp']
 
 # 쿨링팬의 작동 시간 저장
-class Fan:
+class Fan(models.Model):
     name = models.CharField(max_length=50, unique=True)
-    timestamp = models.DateTimeField(default=timezone.now())
-    status = models.BooleanField(verbose_name='Is Fan On')
     runtime = models.DurationField(verbose_name='Fan Runtime')
 
-    class Meta:
-        ordering = ['-timestamp']
-
 # 전구의 작동 시간 저장
-class Bulb:
+class Bulb(models.Model):
     name = models.CharField(max_length=50, unique=True)
-    timestamp = models.DateTimeField(default=timezone.now())
-    status = models.BooleanField(verbose_name='Is Bulb On')
     runtime = models.DurationField(verbose_name='Bulb Runtime')
-
-    class Meta:
-        ordering = ['-timestamp']
 
 # IoT Space의 일월별 전력 소비량(작성 예정)
