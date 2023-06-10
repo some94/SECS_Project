@@ -17,18 +17,14 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 
-from SECS.views import MainView, LoginView, SignUpView, SignUpDoneTV
+from SECS.views import MainView
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-
-    # 로그인 및 회원가입
-    path('signIn/', LoginView.as_view(), name='login'),
-    path('signUp/', SignUpView.as_view(), name='signUp'),
-    path('signUp/done/', SignUpDoneTV.as_view(), name='signUp_done'),
 
     # SECS
     path('', MainView.as_view(), name='main'),
     path('iotspace/', include('iot_space.urls')),
     path('aiotspace/', include('aiot_space.urls')),
+    path('accounts/', include('accounts.urls'))
 ]
