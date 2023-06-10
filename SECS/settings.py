@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     # SECS
     'iot_space.apps.IotSpaceConfig',
     'aiot_space.apps.AiotSpaceConfig',
+    'accounts.apps.AccountsConfig',
 ]
 
 MIDDLEWARE = [
