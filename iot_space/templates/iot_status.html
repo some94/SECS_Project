@@ -1,37 +1,10 @@
-<!DOCTYPE html>
-<html lang="en">
+{% extends "base.html" %}
 
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="../../static/css/style.css">
-    <script src="../../templates/main.js" defer></script>
-    <title>IoT Space</title>
-</head>
+{% load static %}
 
-<body>
-    <nav class="navbar">
+{% block title %}IoT Space{% endblock %}
 
-        <div class="navbar__logo">
-            <a href="">SECS</a>
-        </div>
-
-        <ul class="navbar__menu">
-            <li><a href="#">Introduce</a></li>
-            <li><a href="#">IoT Space</a></li>
-            <li><a href="#">AIoT Space</a></li>
-        </ul>
-
-        <ul class="navbar__sign">
-            <li><a id="navbar__sign-in" href="../../templates/registration/login.html">Sign in</a></li>
-            <li><a id="navbar__sign-up" href="../../templates/registration/signUp.html">Sign up</a></li>
-        </ul>
-
-        <a href="#" class="navbar__toggleBtn"></a>
-    </nav>
-
-
+{% block content %}
     <div id="status_body">
         <div class="status_margin" id="status_body-top">IoT Space</div>
         <div class="status_margin" id="status_body-middle">
@@ -48,5 +21,4 @@
             </a>
         </div>
     </div>
-</body>
-</html>
+{% endblock content %}

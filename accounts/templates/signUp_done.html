@@ -1,6 +1,8 @@
 {% extends "base.html" %}
 
-{% block title %}signUp_done.html{% endblock %}
+{% load static %}
+
+{% block title %}Sign-Up-Done{% endblock %}
 
 {% block content %}
 
@@ -9,6 +11,6 @@
 
     <p>SECS의 회원이 되어 주셔서 감사합니다.</p><br><br>
 
-    <p class="font-italic"><a href="login.html">Log in</a> </p>
+    <p class="font-italic"><a href="{% url 'accounts:login' %}">Log in</a> </p>
 
-{% endblock %}
+{% endblock content%}

@@ -1,34 +1,41 @@
+{% load static %}
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ko">
 
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="../static/css/style.css">
-    <script src="main.js" defer></script>
-    <title>Base</title>
+
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+
+    <title>{% block title %}SECS{% endblock %}</title>
 </head>
 
 <body>
-    <nav class="navbar">
+{% block contents %}
+<nav class="navbar">
 
-        <div class="navbar__logo">
-            <a href="">SECS</a>
-        </div>
+    <div class="navbar__logo">
+        <a href="">SECS</a>
+    </div>
 
-        <ul class="navbar__menu">
-            <li><a href="#">Introduce</a></li>
-            <li><a href="#">IoT Space</a></li>
-            <li><a href="#">AIoT Space</a></li>
-        </ul>
+    <ul class="navbar__menu">
+        <li><a href="#">Introduce</a></li>
+        <li><a href="{% url 'iot_space:status' %}">IoT Space</a></li>
+        <li><a href="{% url 'aiot_space:status' %}">AIoT Space</a></li>
+    </ul>
 
-        <ul class="navbar__sign">
-            <li><a id="navbar__sign-in" href="registration/login.html">Sign in</a></li>
-            <li><a id="navbar__sign-up" href="registration/signUp.html">Sign up</a></li>
-        </ul>
+    <ul class="navbar__sign">
+        <li><a id="navbar__sign-in" href="{% url 'accounts:login' %}">Sign in</a></li>
+        <li><a id="navbar__sign-up" href="{% url 'accounts:signUp' %}">Sign up</a></li>
+    </ul>
 
-        <a href="#" class="navbar__toggleBtn"></a>
-    </nav>
+    <a href="#" class="navbar__toggleBtn"></a>
+</nav>
+{% endblock %}
 </body>
+
+<script src="main.js" defer></script>
+
 </html>
