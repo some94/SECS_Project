@@ -68,4 +68,4 @@ class SignUpView(View):
         return JsonResponse({'users': list(user_data)}, status=200)
 
 class SignUpDoneTV(TemplateView):
-    template_name = 'registration/signUp_done.html'
+    template_name = 'signUp_done.html'
