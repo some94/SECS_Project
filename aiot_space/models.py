@@ -42,3 +42,8 @@ class Bulb(models.Model):
     runtime = models.DurationField(verbose_name='Bulb Runtime')
 
 # IoT Space의 일월별 전력 소비량(작성 예정)
+class Consumption(models.Model):
+    id = models.IntegerField(primary_key=True)
+    consumption = models.FloatField(verbose_name='Consumption')
+    daily = models.CharField(max_length=20)
+    month = models.CharField(max_length=20)
