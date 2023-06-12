@@ -11,8 +11,8 @@
                 SECS ID 생성
             </div>
 
-            <form action="#" method="POST" autocomplete="off">
-
+            <form action="{% url 'accounts:signUp' %}" method="POST" autocomplete="off">
+                {% csrf_token %}
                 <div class="login_highMargin">
                     <input type="text" name="id" placeholder=" Username" title="이름" class="input_text" maxlength="41" value="">
                 </div>
