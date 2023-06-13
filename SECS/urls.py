@@ -17,13 +17,14 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 
-from SECS.views import MainView
+from SECS.views import MainView, IntroduceView
 
 urlpatterns = [
     path('admin/', admin.site.urls),
 
     # SECS
     path('', MainView.as_view(), name='main'),
+    path('introduce/', IntroduceView.as_view(), name='introduce'),
     path('iotspace/', include('iot_space.urls')),
     path('aiotspace/', include('aiot_space.urls')),
     path('accounts/', include('accounts.urls'))

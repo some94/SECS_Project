@@ -17,11 +17,11 @@
 <nav class="navbar">
 
     <div class="navbar__logo">
-        <a href="">SECS</a>
+        <a href="{% url 'main' %}">SECS</a>
     </div>
 
     <ul class="navbar__menu">
-        <li><a href="#">Introduce</a></li>
+        <li><a href="{% url 'introduce' %}">Introduce</a></li>
         <li><a href="{% url 'iot_space:status' %}">IoT Space</a></li>
         <li><a href="{% url 'aiot_space:status' %}">AIoT Space</a></li>
     </ul>
