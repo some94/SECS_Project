@@ -1,3 +1,4 @@
+from django.contrib.admin import action
 from django.shortcuts import render
 from django.views.generic import TemplateView
 
@@ -5,4 +6,6 @@ from django.views.generic import TemplateView
 class IoTStatus(TemplateView):
     template_name = 'iot_status.html'
 
-# class IoTConsumption:
+    # @action(methods=['POST'], detail=True)
+    # def get_data(self, request, **kwargs):
+    #     temp = request.data.get('temperature')

@@ -2,7 +2,6 @@ import json
 import bcrypt
 import jwt
 
-from django.views import View
 from django.views.generic import TemplateView
 from django.http import JsonResponse
 from SECS.settings import SECRET_KEY
@@ -10,7 +9,8 @@ from SECS.settings import SECRET_KEY
 from .models import User
 
 # -- Login
-class LoginView(View):
+class LoginView(TemplateView):
+    template_name = 'login.html'
     # post 로 받은 request 데이터를 인자로 받는다
     def post(self, request):
         # data는 request의 데이터 내용을 json 형태로 불러온다
@@ -40,7 +40,8 @@ class LoginView(View):
 
 
 # -- SignUp
-class SignUpView(View):
+class SignUpView(TemplateView):
+    template_name = 'signUp.html'
     # post 방식으로 요청할 경우 회원가입한다
     def post(self, request):
         # data에 request에 담긴 정보를 넣어준다
@@ -63,9 +64,9 @@ class SignUpView(View):
         except KeyError:
             return JsonResponse({'message': 'INVALID_KEYS'}, status=400)
 
-    def get(self, request):
-        user_data = User.objects.values()
-        return JsonResponse({'users': list(user_data)}, status=200)
+    # def get(self, request):
+    #     user_data = User.objects.values()
+    #     return JsonResponse({'users': list(user_data)}, status=200)
 
 class SignUpDoneTV(TemplateView):
     template_name = 'signUp_done.html'

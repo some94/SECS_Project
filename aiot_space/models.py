@@ -31,7 +31,7 @@ class IrSensor(models.Model):
 class Fan(models.Model):
     name = models.CharField(max_length=50)
     runtime = models.DurationField(verbose_name='Fan Runtime')
-    fan_consumption = models.FloatField(verbose_name='Fan Consumption')
+    fan_consumption = models.FloatField(verbose_name='Fan Consumption', blank=True)
     date = models.CharField(max_length=20)
     month = models.CharField(max_length=20)
 
@@ -39,11 +39,11 @@ class Fan(models.Model):
 class Bulb(models.Model):
     name = models.CharField(max_length=50)
     runtime = models.DurationField(verbose_name='Bulb Runtime')
-    bulb_consumption = models.FloatField(verbose_name='Bulb Consumption')
+    bulb_consumption = models.FloatField(verbose_name='Bulb Consumption', blank=True)
     date = models.CharField(max_length=20)
     month = models.CharField(max_length=20)
 
 # AIoT Space의 일월별 전력 소비량
 class Consumption(models.Model):
-    daily_consumption = models.FloatField(verbose_name='Daily Consumption')
-    monthly_consumption = models.FloatField(verbose_name='Month Consumption')
+    daily_consumption = models.FloatField(verbose_name='Daily Consumption', null=True)
+    monthly_consumption = models.FloatField(verbose_name='Month Consumption', null=True)
