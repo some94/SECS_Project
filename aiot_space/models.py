@@ -1,9 +1,8 @@
 from django.db import models
 from django.utils import timezone
 
-# 온습도 센서의 현재 상태
+# 온습도 센서
 class DhtSensor(models.Model):
-    id = models.IntegerField(primary_key=True)
     name = models.CharField(max_length=50)
     timestamp = models.DateTimeField(default=timezone.now)
     temperature = models.FloatField(verbose_name='Temperature')
@@ -16,9 +15,8 @@ class DhtSensor(models.Model):
     class Meta:
         ordering = ['-timestamp']
 
-# 적외선 센서의 현재 상태
+# 적외선 센서
 class IrSensor(models.Model):
-    id = models.IntegerField(primary_key=True)
     name = models.CharField(max_length=50)
     timestamp = models.DateTimeField(default=timezone.now)
     status = models.CharField(max_length=50, verbose_name='Motion Detected')
@@ -29,21 +27,23 @@ class IrSensor(models.Model):
     class Meta:
         ordering = ['-timestamp']
 
-# 쿨링팬의 작동 시간 저장
+# 쿨링팬
 class Fan(models.Model):
-    id = models.IntegerField(primary_key=True)
     name = models.CharField(max_length=50)
     runtime = models.DurationField(verbose_name='Fan Runtime')
+    fan_consumption = models.FloatField(verbose_name='Fan Consumption')
+    date = models.CharField(max_length=20)
+    month = models.CharField(max_length=20)
 
-# 전구의 작동 시간 저장
+# 전구
 class Bulb(models.Model):
-    id = models.IntegerField(primary_key=True)
     name = models.CharField(max_length=50)
     runtime = models.DurationField(verbose_name='Bulb Runtime')
-
-# IoT Space의 일월별 전력 소비량(작성 예정)
-class Consumption(models.Model):
-    id = models.IntegerField(primary_key=True)
-    consumption = models.FloatField(verbose_name='Consumption')
-    daily = models.CharField(max_length=20)
+    bulb_consumption = models.FloatField(verbose_name='Bulb Consumption')
+    date = models.CharField(max_length=20)
     month = models.CharField(max_length=20)
+
+# AIoT Space의 일월별 전력 소비량
+class Consumption(models.Model):
+    daily_consumption = models.FloatField(verbose_name='Daily Consumption')
+    monthly_consumption = models.FloatField(verbose_name='Month Consumption')
