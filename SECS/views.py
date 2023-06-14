@@ -6,3 +6,6 @@ class MainView(TemplateView):
 
 class IntroduceView(TemplateView):
     template_name = 'introduce.html'
+
+class IntroduceView(TemplateView):
+    template_name = 'introduce.html'
