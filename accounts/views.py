@@ -1,10 +1,8 @@
-import json
-
 import bcrypt
 import jwt
 
 from django.shortcuts import render, redirect
-from django.views.generic import View, TemplateView
+from django.views.generic import View
 from django.http import JsonResponse
 from SECS.settings import SECRET_KEY
 
@@ -44,13 +42,43 @@ class LoginView(View):
             return JsonResponse({'message': e.args}, status=400)
 
 
-def logout(request):
-    if 'token' in request.session:
-        del request.session['token']
-        return redirect('http://127.0.0.1:8000/')
-    else:
-        return JsonResponse({'message': '로그인 상태가 아닙니다.'}, json_dumps_params={'ensure_ascii': False},
-                            status=400)
+# -- LogOut
+class LogoutView(View):
+    def get(self, request):
+        if 'token' in request.session:
+            del request.session['token']
+
+        redirect_url = 'http://192.210.247.224:8000/'
+        return redirect(redirect_url)
+
+
+# -- PasswordChange
+class PasswordChangeView(View):
+    def get(self, request):
+        return render(request, 'update_password.html')
+
+    def post(self, request):
+        data = request.POST
+        try:
+            password = data['password']
+            new_password = data['new_password']
+            confirm_password = data['confirm_password']
+
+            if new_password == confirm_password:
+                hashed_password = bcrypt.hashpw(password.encode('utf-8'), bcrypt.gensalt())
+                user = User.objects.get(password=hashed_password)
+
+                if bcrypt.checkpw(password.encode('utf-8'), user.password.encode('utf-8')):
+                    hashed_new_password = bcrypt.hashpw(new_password.encode('utf-8'), bcrypt.gensalt())
+                    user.password = hashed_new_password.decode('utf-8')
+                    user.save()
+
+                    return JsonResponse({'message': '비밀번호가 변경되었습니다.'}, status=200)
+                else:
+                    return JsonResponse({'message': '현재 비밀번호가 올바르지 않습니다.'}, status=401)
+
+        except KeyError:
+            return JsonResponse({'message': '요청 데이터가 올바르지 않습니다.'}, status=400)
 
 
 # -- SignUp
