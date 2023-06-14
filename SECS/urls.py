@@ -27,5 +27,5 @@ urlpatterns = [
     path('introduce/', IntroduceView.as_view(), name='introduce'),
     path('iotspace/', include('iot_space.urls')),
     path('aiotspace/', include('aiot_space.urls')),
-    path('accounts/', include('accounts.urls'))
+    path('accounts/', include('accounts.urls')),
 ]
