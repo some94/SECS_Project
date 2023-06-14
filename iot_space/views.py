@@ -7,8 +7,6 @@ from django.views.decorators.csrf import csrf_exempt
 from django.views.generic import TemplateView
 import json
 
-temp = 0
-detect = 'O'
 #-- TemplateView
 class IoTStatus(View):
     def get(self, request):
@@ -20,12 +18,10 @@ class IoTStatus(View):
         return super().dispatch(request, *args, **kwargs)
 
     def post(self, request):
-        global temp
-        global detect
         json_data = json.loads(request.body)
         temp = json_data.get('temperature')
         detect = json_data.get('detection')
-        return render(request, 'iot_status.html', {'temperature': temp, 'detection': detect}, content_type='application/json')
+        return render(request, 'iot_status.html', {'temperature': temp, 'detection': detect})
 
     def http_method_not_allowed(self, request, *args, **kwargs):
         return HttpResponse("Method Not Allowed", status=405)
