@@ -3,7 +3,7 @@ import jwt
 
 from django.shortcuts import render, redirect
 from django.views.generic import View
-from django.http import JsonResponse
+from django.http import JsonResponse, HttpResponseRedirect
 from SECS.settings import SECRET_KEY
 
 from .models import User
@@ -30,7 +30,7 @@ class LoginView(View):
                     token = jwt.encode({'email': user.email}, SECRET_KEY, algorithm="HS256")
                     request.session['token'] = token
                     # return 시 JsonResponse에 Access token을 넣는다
-                    return render(request, 'main.html', {'email': user.email})
+                    return render(request, 'main.html', {'email': user.email, 'is_authenticated': request.user.is_authenticated})
                 else:
                     return JsonResponse({'message': '비밀번호가 틀렸습니다.'}, json_dumps_params={'ensure_ascii': False},
                                         status=401)
@@ -49,7 +49,7 @@ class LogoutView(View):
             del request.session['token']
 
         redirect_url = 'http://192.210.247.224:8000/'
-        return redirect(redirect_url)
+        return HttpResponseRedirect(redirect_url)
 
 
 # -- PasswordChange
