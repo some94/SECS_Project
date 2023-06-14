@@ -4,6 +4,7 @@ import jwt
 from django.shortcuts import render, redirect
 from django.views.generic import View
 from django.http import JsonResponse, HttpResponseRedirect
+from django.urls import reverse
 from SECS.settings import SECRET_KEY
 
 from .models import User
@@ -29,8 +30,7 @@ class LoginView(View):
                     # 비밀번호가 맞다면 토큰을 발행하고, 토큰 값에는 email(PK)을 넣어 발행한다
                     token = jwt.encode({'email': user.email}, SECRET_KEY, algorithm="HS256")
                     request.session['token'] = token
-                    # return 시 JsonResponse에 Access token을 넣는다
-                    return render(request, 'main.html', {'email': user.email, 'is_authenticated': request.user.is_authenticated})
+                    return render(request, 'main.html', {'name': user.name})
                 else:
                     return JsonResponse({'message': '비밀번호가 틀렸습니다.'}, json_dumps_params={'ensure_ascii': False},
                                         status=401)
@@ -48,7 +48,7 @@ class LogoutView(View):
         if 'token' in request.session:
             del request.session['token']
 
-        redirect_url = 'http://192.210.247.224:8000/'
+        redirect_url = reverse('main')
         return HttpResponseRedirect(redirect_url)
 
 
@@ -65,20 +65,25 @@ class PasswordChangeView(View):
             confirm_password = data['confirm_password']
 
             if new_password == confirm_password:
-                hashed_password = bcrypt.hashpw(password.encode('utf-8'), bcrypt.gensalt())
-                user = User.objects.get(password=hashed_password)
+                token = request.session.get('token')
+                decoded_token = jwt.decode(token, SECRET_KEY, algorithms="HS256")
+                email = decoded_token.get('email')
+                user = User.objects.get(email=email)
 
                 if bcrypt.checkpw(password.encode('utf-8'), user.password.encode('utf-8')):
                     hashed_new_password = bcrypt.hashpw(new_password.encode('utf-8'), bcrypt.gensalt())
                     user.password = hashed_new_password.decode('utf-8')
                     user.save()
 
-                    return JsonResponse({'message': '비밀번호가 변경되었습니다.'}, status=200)
+                    return JsonResponse({'message': '비밀번호가 변경되었습니다.'}, json_dumps_params={'ensure_ascii': False}, status=200)
                 else:
-                    return JsonResponse({'message': '현재 비밀번호가 올바르지 않습니다.'}, status=401)
+                    return JsonResponse({'message': '현재 비밀번호가 올바르지 않습니다.'}, json_dumps_params={'ensure_ascii': False}, status=401)
+
+            else:
+                return JsonResponse({'message': '새 비밀번호와 비밀번호 확인이 일치하지 않습니다.'}, json_dumps_params={'ensure_ascii': False}, status=401)
 
         except KeyError:
-            return JsonResponse({'message': '요청 데이터가 올바르지 않습니다.'}, status=400)
+            return JsonResponse({'message': '요청 데이터가 올바르지 않습니다.'}, json_dumps_params={'ensure_ascii': False}, status=400)
 
 
 # -- SignUp

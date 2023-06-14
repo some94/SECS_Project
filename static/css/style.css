@@ -61,6 +61,10 @@ a {
   border-radius: 8px;
   padding: 2px 2px;
 }
+#nav-logined {
+  list-style: none;
+  margin: 0;
+}
 
 .navbar__toggleBtn {
   background-image: url(../image/Hamburger_icon_black.png);
