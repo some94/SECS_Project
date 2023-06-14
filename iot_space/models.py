@@ -46,6 +46,7 @@ class Bulb(models.Model):
     daily = models.CharField(max_length=20)
     month = models.CharField(max_length=20)
 
+
 # IoT Space의 일월별 전력 소비량
 class Consumption(models.Model):
     daily_consumption = models.FloatField(verbose_name='Daily Consumption', null=True)
