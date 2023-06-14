@@ -1,5 +1,5 @@
 from django.urls import path
-from accounts.views import LoginView, SignUpView, SignUpDoneTV
+from accounts.views import LoginView, SignUpView
 
 app_name = 'accounts'
 urlpatterns = [
@@ -10,6 +10,4 @@ urlpatterns = [
     # Example: /accounts/signUp/
     path('signUp/', SignUpView.as_view(), name='signUp'),
 
-    # Example: /accounts/signUp/done
-    path('signUp/done/', SignUpDoneTV.as_view(), name='signUp_done'),
 ]
