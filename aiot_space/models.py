@@ -15,6 +15,7 @@ class DhtSensor(models.Model):
     class Meta:
         ordering = ['-timestamp']
 
+
 # 적외선 센서
 class IrSensor(models.Model):
     name = models.CharField(max_length=50)
@@ -27,23 +28,32 @@ class IrSensor(models.Model):
     class Meta:
         ordering = ['-timestamp']
 
+
 # 쿨링팬
 class Fan(models.Model):
     name = models.CharField(max_length=50)
+    timestamp = models.DateTimeField(default=timezone.now)
     runtime = models.DurationField(verbose_name='Fan Runtime')
     fan_consumption = models.FloatField(verbose_name='Fan Consumption', blank=True)
     date = models.CharField(max_length=20)
     month = models.CharField(max_length=20)
 
+
 # 전구
 class Bulb(models.Model):
     name = models.CharField(max_length=50)
+    timestamp = models.DateTimeField(default=timezone.now)
     runtime = models.DurationField(verbose_name='Bulb Runtime')
     bulb_consumption = models.FloatField(verbose_name='Bulb Consumption', blank=True)
     date = models.CharField(max_length=20)
     month = models.CharField(max_length=20)
 
-# AIoT Space의 일월별 전력 소비량
+
+# IoT Space의 일월별 전력 소비량
 class Consumption(models.Model):
+    timestamp = models.DateTimeField(default=timezone.now)
+    date = models.CharField(max_length=20)
+    month = models.CharField(max_length=20)
     daily_consumption = models.FloatField(verbose_name='Daily Consumption', null=True)
     monthly_consumption = models.FloatField(verbose_name='Month Consumption', null=True)
+
