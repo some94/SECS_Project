@@ -30,7 +30,8 @@ class LoginView(View):
                     # 비밀번호가 맞다면 토큰을 발행하고, 토큰 값에는 email(PK)을 넣어 발행한다
                     token = jwt.encode({'email': user.email}, SECRET_KEY, algorithm="HS256")
                     request.session['token'] = token
-                    return render(request, 'main.html', {'name': user.name})
+                    request.session['name'] = user.name
+                    return redirect('main')
                 else:
                     return JsonResponse({'message': '비밀번호가 틀렸습니다.'}, json_dumps_params={'ensure_ascii': False},
                                         status=401)

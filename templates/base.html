@@ -27,7 +27,7 @@
     </ul>
 
     {% if 'token' in request.session %}
-        <p>{{ name }}님, 환영합니다!</p>
+        <p>{{ request.session.name }}님, 환영합니다!</p>
         <br>
         <ul id="nav-logined">
             <li><a href="{% url 'accounts:passwordChange' %}">[비밀번호 변경]</a></li>
