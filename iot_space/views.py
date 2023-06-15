@@ -7,15 +7,13 @@ from django.views.decorators.csrf import csrf_exempt
 from django.views.generic import TemplateView
 import json
 
-temp = 10
-detect = 'X'
 #-- TemplateView
 class IoTStatus(View):
-    def get(self, request):
-        # pointId = Point.objects.all()
-        # return render('iot_status.html', pointId)
-        # return render(request, 'iot_status.html')
-        return render(request, 'iot_status.html', {'temperature': temp, 'detection': detect})
+    # def get(self, request):
+    #     # pointId = Point.objects.all()
+    #     # return render('iot_status.html', pointId)
+    #     # return render(request, 'iot_status.html')
+    #     return render(request, 'iot_status.html', {'temperature': temp, 'detection': detect})
     # def ListFunc(request):
     #     datas = SangTab.objects.all()
     #     return render(request, 'list.html', {'sangpums': datas})
@@ -28,6 +26,13 @@ class IoTStatus(View):
     # temp.save()
     def post(self, request):
         json_data = json.loads(request.body)
-        temp = json_data.get('temperature')
-        detect = json_data.get('detection')
-        return JsonResponse(request, 'iot_status.html', {'temperature': temp, 'detection': detect})
+        temp = json_data.get('iot_temperature')
+        detect = json_data.get('iot_ir_state')
+        print('temp:', temp)
+        return JsonResponse({'temperature': temp, 'detection': detect})
+
+    # def post(self, request):
+    #     json_data = json.loads(request.body)
+    #     temp = json_data.get('temperature')
+    #     detect = json_data.get('detection')
+    #     return JsonResponse(request, 'iot_status.html', {'temperature': temp, 'detection': detect})
