@@ -9,7 +9,7 @@ import json
 
 class AIoTStatus(View):
     def get(self, request):
-        aiot_context = request.session.get['aiot_context']
+        aiot_context = request.session.get('aiot_context')
         if aiot_context:
             context = {'aiot_context': aiot_context}
             return render(request, 'aiot_status.html', context)
@@ -28,16 +28,3 @@ class AIoTStatus(View):
         request.session['aiot_context'] = aiot_context
 
         return render(request, 'aiot_status.html', context=aiot_context, content_type='application/json')
-
-    # def get(self, request):
-    #     latest_dht_sensor = DhtSensor.objects.latest('timestamp')
-    #     latest_temperature = latest_dht_sensor.temperature
-    #     latest_ir_sensor = IrSensor.objects.latest('timestamp')
-    #     latest_status = latest_ir_sensor.status
-    #
-    #     context = {
-    #         'latest_temperature': latest_temperature,
-    #         'latest_status': latest_status
-    #     }
-    #
-    #     return render(request, 'aiot_status.html', context)

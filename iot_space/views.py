@@ -9,7 +9,7 @@ import json
 
 class IoTStatus(View):
     def get(self, request):
-        iot_context = request.session.get['iot_context']
+        iot_context = request.session.get('iot_context')
         if iot_context:
             context = {'iot_context': iot_context}
             return render(request, 'iot_status.html', context)
@@ -27,17 +27,4 @@ class IoTStatus(View):
         iot_context = {'iot_temperature': iot_temperature, 'iot_ir_state': iot_ir_state}
         request.session['iot_context'] = iot_context
 
-        return render(request, 'iot_status.html', context=iot_context, content_type='application/json')
-
-    # def get(self, request):
-    #     latest_dht_sensor = DhtSensor.objects.latest('timestamp')
-    #     latest_temperature = latest_dht_sensor.temperature
-    #     latest_ir_sensor = IrSensor.objects.latest('timestamp')
-    #     latest_status = latest_ir_sensor.status
-    #
-    #     context = {
-    #         'latest_temperature': latest_temperature,
-    #         'latest_status': latest_status
-    #     }
-    #
-    #     return render(request, 'iot_status.html', context)
+        return render(request, 'iot_status.html', context=iot_context)
