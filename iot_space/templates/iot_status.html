@@ -9,11 +9,17 @@
         <div class="status_margin" id="status_body-top">IoT Space</div>
         <div class="status_margin" id="status_body-middle">
             <div>
+                현재온도: 22.8ºC
+            </div>
+            <div>
+                감지된 물체: X
+            </div>
+            {% comment %}<div>
                 현재온도: {{ iot_temperature }}ºC
             </div>
             <div>
                 감지된 물체: {{ iot_ir_state }}
-            </div>
+            </div>{% endcomment %}
         </div>
         <div class="status_margin">
             <a id="btn_statistic" href="../../templates/statistic.html">

@@ -5,7 +5,27 @@ from django.views.generic import View
 from django.views.decorators.csrf import csrf_exempt
 from iot_space.models import DhtSensor, IrSensor
 
-import json
+# # 소켓 통신 부분
+# import socket, time
+#
+# host = 'localhost'
+# port = 8000
+#
+# import json
+#
+# server_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+# server_socket.bind((host, port))
+# server_socket.listen()
+#
+# client_socket, client_address = server_socket.accept()
+# data = client_socket.recv(1024)
+# decoded_data = data.decode()
+# payload = json.loads(decoded_data)
+#
+# # 이 값을 html로 전송
+# iot_temperature = payload[iot_temperature]
+# iot_state = payload[iot_ir_state]
+
 
 class IoTStatus(View):
     def get(self, request):
