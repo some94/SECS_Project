@@ -9,16 +9,23 @@
         <div class="status_margin" id="status_body-top">AIoT Space</div>
         <div class="status_margin" id="status_body-middle">
             <div>
-                현재온도: 22.8ºC
+                현재 온도: {{ temperature|floatformat:1}}ºC
             </div>
             <div>
-                감지된 물체: X
+                감지된 물체: {{ detection }}
             </div>
         </div>
-        <div class="status_margin">
+        {% comment %}<div class="status_margin">
             <a id="btn_statistic" href="../../templates/statistic.html">
                 <span class="btn_text">전력 소모량</span>
             </a>
-        </div>
+        </div>{% endcomment %}
     </div>
+    <script>
+        // 3초마다 페이지를 새로 고침
+        const refreshInterval = 3000; // 3초
+        setInterval(() => {
+            location.reload();
+        }, refreshInterval);
+    </script>
 {% endblock %}

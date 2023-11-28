@@ -26,7 +26,7 @@
         <li><a href="{% url 'aiot_space:status' %}">AIoT Space</a></li>
     </ul>
 
-    {% if 'token' in request.session %}
+    {% if request.session.token %}
         <p>{{ request.session.name }}님, 환영합니다!</p>
         <br>
         <ul id="nav-logined">
