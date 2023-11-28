@@ -4,7 +4,7 @@ from django.utils import timezone
 # 온습도 센서
 class DhtSensor(models.Model):
     name = models.CharField(max_length=50)
-    timestamp = models.DateTimeField(default=timezone.now)
+    timestamp = models.DateTimeField(default=timezone.now, primary_key=True)
     temperature = models.FloatField(verbose_name='Temperature')
     humidity = models.FloatField(verbose_name='Humidity')
 
@@ -19,7 +19,7 @@ class DhtSensor(models.Model):
 # 적외선 센서
 class IrSensor(models.Model):
     name = models.CharField(max_length=50)
-    timestamp = models.DateTimeField(default=timezone.now)
+    timestamp = models.DateTimeField(default=timezone.now, primary_key=True)
     status = models.CharField(max_length=50, verbose_name='Motion Detected')
 
     def __str__(self):
@@ -32,7 +32,7 @@ class IrSensor(models.Model):
 # 쿨링팬
 class Fan(models.Model):
     name = models.CharField(max_length=50)
-    timestamp = models.DateTimeField(default=timezone.now)
+    timestamp = models.DateTimeField(default=timezone.now, primary_key=True)
     runtime = models.DurationField(verbose_name='Fan Runtime')
     fan_consumption = models.FloatField(verbose_name='Fan Consumption', blank=True)
     date = models.CharField(max_length=20)
@@ -42,7 +42,7 @@ class Fan(models.Model):
 # 전구
 class Bulb(models.Model):
     name = models.CharField(max_length=50)
-    timestamp = models.DateTimeField(default=timezone.now)
+    timestamp = models.DateTimeField(default=timezone.now, primary_key=True)
     runtime = models.DurationField(verbose_name='Bulb Runtime')
     bulb_consumption = models.FloatField(verbose_name='Bulb Consumption', blank=True)
     date = models.CharField(max_length=20)
@@ -51,7 +51,7 @@ class Bulb(models.Model):
 
 # IoT Space의 일월별 전력 소비량
 class Consumption(models.Model):
-    timestamp = models.DateTimeField(default=timezone.now)
+    timestamp = models.DateTimeField(default=timezone.now, primary_key=True)
     date = models.CharField(max_length=20)
     month = models.CharField(max_length=20)
     daily_consumption = models.FloatField(verbose_name='Daily Consumption', null=True)

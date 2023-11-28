@@ -25,12 +25,13 @@ class LoginView(View):
                 user = User.objects.get(email=data['email'])
                 user_password = user.password.encode('utf-8')
 
-                # 비밀번호를 인코딩 한 값과 현재 DB에 저장된 암호화된 값을 비교한다
+                # 비밀 번호를 인코딩 한 값과 현재 DB에 저장된 암호화된 값을 비교한다
                 if bcrypt.checkpw(data['password'].encode('utf-8'), user_password):
                     # 비밀번호가 맞다면 토큰을 발행하고, 토큰 값에는 email(PK)을 넣어 발행한다
                     token = jwt.encode({'email': user.email}, SECRET_KEY, algorithm="HS256")
                     request.session['token'] = token
                     request.session['name'] = user.name
+                    # return render(request, 'main.html')
                     return redirect('main')
                 else:
                     return JsonResponse({'message': '비밀번호가 틀렸습니다.'}, json_dumps_params={'ensure_ascii': False},
