@@ -11,4 +11,3 @@
 migrations/
 db.sqlite3
 /SECS/my_settings.py
-requirements.txt
